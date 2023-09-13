@@ -29,6 +29,7 @@ jobs:
         name: VPCStack
         template: cfn/vpc.yaml
         parameter-overrides: file:///${{ github.workspace }}/cfn/vpc-parameters-development.json
+        role-arn: arn:aws:iam::609880104368:role/GitHubActionsCFNDeploy
 # 
 #   deploy-to-prod:
 #     # ensure test deploy is successful first
