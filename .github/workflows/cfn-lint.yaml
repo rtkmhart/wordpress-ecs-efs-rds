@@ -2,11 +2,6 @@ name: Lint CloudFormation Templates
 
 on: [push]
 
-# TODO: add the linting available via CFN
-permissions:
-      id-token: write   # This is required for requesting the JWT
-      contents: read    # This is required for actions/checkout
-      
 jobs:
   cloudformation-linter:
     runs-on: ubuntu-latest
@@ -22,24 +17,3 @@ jobs:
         run: |
           cfn-lint --version
           cfn-lint -t ./cfn/*.yaml
-
-  cloudformation-linter-with-cfn:
-    runs-on: ubuntu-latest
-    environment: development
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-    - name: Configure AWS credentials from the mhartdev account
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        role-to-assume: arn:aws:iam::609880104368:role/GitHubAction-rtkmhart-AssumeRoleWithAction
-        aws-region: us-east-2
-        role-session-name: githubaction-rtkmhart-wordpress-ecs-efs-rds
-    # Hello from AWS: WhoAmI TODO fixme
-    - name: Sts GetCallerIdentity
-      run: |
-        aws sts get-caller-identity
-
-# Next
-# create role
-# create policy
