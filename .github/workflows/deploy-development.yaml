@@ -1,10 +1,18 @@
-name: Deployment
+name: DeploymentToDev
+
+# Deploy to Dev. We only want this on non-main branches.
+# TODO:
+# * in an ideal world this is reusable workflow between dev & prod
+# * look at concurrency, how do we avoid multiple branches tromping on each other? Do we need to?
 
 permissions:
       id-token: write   # This is required for requesting the JWT
       contents: read    # This is required for actions/checkout
 
-on: [ push ]
+on:
+  push:
+    branches-ignore:
+      - main
   
 jobs:
   deploy-to-development:
