@@ -3,11 +3,9 @@ name: Deployment
 permissions:
       id-token: write   # This is required for requesting the JWT
       contents: read    # This is required for actions/checkout
-on:
-  push:
-    branches:
-      - main
 
+on: [ push ]
+  
 jobs:
   deploy-to-development:
     concurrency: development
@@ -30,8 +28,7 @@ jobs:
       with:
         name: VPCStack
         template: cfn/vpc.yaml
-        parameter-overrides: file:///${{ github.workspace }}/cfn/vpc-parameters.${{ jobs.deploy-t-development.environment }}.json" #TODO is that correct format?
-
+        parameter-overrides: file:///${{ github.workspace }}/cfn/vpc-parameters.${{ jobs.deploy-to-development.environment }}.json
 # 
 #   deploy-to-prod:
 #     # ensure test deploy is successful first
