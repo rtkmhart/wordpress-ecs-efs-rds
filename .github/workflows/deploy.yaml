@@ -28,7 +28,7 @@ jobs:
       with:
         name: VPCStack
         template: cfn/vpc.yaml
-        parameter-overrides: file:///${{ github.workspace }}/cfn/vpc-parameters.${{ jobs.deploy-to-development.environment }}.json
+        parameter-overrides: file:///${{ github.workspace }}/cfn/vpc-parameters.${{ environment }}.json
 # 
 #   deploy-to-prod:
 #     # ensure test deploy is successful first
