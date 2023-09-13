@@ -1,13 +1,19 @@
-name: Deployment
+name: DeploymentToDev
+
+# Deploy to Dev. We only want this on non-main branches.
+# TODO:
+# * in an ideal world this is reusable workflow between dev & prod
+# * look at concurrency, how do we avoid multiple branches tromping on each other? Do we need to?
 
 permissions:
       id-token: write   # This is required for requesting the JWT
       contents: read    # This is required for actions/checkout
+
 on:
   push:
-    branches:
+    branches-ignore:
       - main
-
+  
 jobs:
   deploy-to-development:
     concurrency: development
@@ -30,8 +36,10 @@ jobs:
       with:
         name: VPCStack
         template: cfn/vpc.yaml
-        parameter-overrides: file:///${{ github.workspace }}/cfn/vpc-parameters.${{ jobs.deploy-t-development.environment }}.json" #TODO is that correct format?
-
+        parameter-overrides: file:///${{ github.workspace }}/cfn/vpc-parameters-development.json
+        role-arn: arn:aws:iam::609880104368:role/GitHubActionsCFNDeploy
+        no-fail-on-empty-changeset: "1"
+        tags: [ { "Key": "Owner", "Value": "mhart" }, { "Key": "Environment", "Value": "development" } ]
 # 
 #   deploy-to-prod:
 #     # ensure test deploy is successful first
