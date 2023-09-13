@@ -1,0 +1,37 @@
+# name: Deployment
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   deploy-to-dev:
+#     concurrency: development
+#     runs-on: ubuntu-latest
+#     environment: development
+#     steps:
+#     - name: Checkout
+#       uses: actions/checkout@v3
+#     - name: Configure AWS credentials from the mhartdev account
+#       uses: aws-actions/configure-aws-credentials@v4
+#       with:
+#         role-to-assume: arn:aws:iam::609880104368:role/TODOFIXME
+#         aws-region: us-east-2
+
+#   deploy-to-prod:
+#     # ensure dev deploy is successful first
+#     needs: deploy-to-dev
+#     concurrency: production
+#     runs-on: ubuntu-latest
+#     environment: production
+
+#     steps:
+#     - name: Checkout
+#       uses: actions/checkout@v3
+#     - name: Configure AWS credentials from the mhartprod account
+#       uses: aws-actions/configure-aws-credentials@v4
+#       with:
+#         role-to-assume: arn:aws:iam::701918612521:role/TODOFIXME
+#         aws-region: us-east-2
+
