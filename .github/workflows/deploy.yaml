@@ -6,10 +6,10 @@
 #       - main
 
 # jobs:
-#   deploy-to-dev:
-#     concurrency: development
+#   deploy-to-test:
+#     concurrency: test
 #     runs-on: ubuntu-latest
-#     environment: development
+#     environment: test
 #     steps:
 #     - name: Checkout
 #       uses: actions/checkout@v3
@@ -20,8 +20,8 @@
 #         aws-region: us-east-2
 
 #   deploy-to-prod:
-#     # ensure dev deploy is successful first
-#     needs: deploy-to-dev
+#     # ensure test deploy is successful first
+#     needs: deploy-to-test
 #     concurrency: production
 #     runs-on: ubuntu-latest
 #     environment: production
