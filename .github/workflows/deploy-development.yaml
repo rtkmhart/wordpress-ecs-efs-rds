@@ -38,6 +38,8 @@ jobs:
         template: cfn/vpc.yaml
         parameter-overrides: file:///${{ github.workspace }}/cfn/vpc-parameters-development.json
         role-arn: arn:aws:iam::609880104368:role/GitHubActionsCFNDeploy
+        no-fail-on-empty-changeset: "1"
+        tags: [ { "Key": "Owner", "Value": "mhart" }, { "Key": "Environment", "Value": "development" } ]
 # 
 #   deploy-to-prod:
 #     # ensure test deploy is successful first
